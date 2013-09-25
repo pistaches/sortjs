@@ -44,14 +44,21 @@
 		<script src="jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script>
-			var bubble_sort_iteracao = 0;
-			var troca = 0;
+			//vai de 0 até N, onde N = tamanho do vetor-1
+			var selecao_direta_iteracao = 0;
+			
+			//vai de M até N, onde: 
+			//M = selecao_direta_iteracao + 1, e 
+			//N = tamanho do vetor-1
+			var posicao = 1;
+			
 			var ordenado = false;
 			var varray = null;
 
 			$( document ).ready(function() {
 				$( "#botao_proximo" ).click(function( event ) {
 					if (!ordenado){
+						//se ainda não existe, cria o vetor inicial
 						if (varray === null){
 							var x = $("#conjunto_original").val().trim(); 
 							if (x.substring(x.length-1, x.length) == ";"){						
@@ -59,12 +66,15 @@
 							}
 							varray = x.split(";");
 						}
-						bubble_sort_step(varray);
+
+						//executa o passo
+						selecao_direta_step(varray);
 					}
 				});
 
 			$( "#botao_ordenar" ).click(function( event ) {
 					while (!ordenado){
+						//se ainda não existe, cria o vetor inicial
 						if (varray === null){
 							var x = $("#conjunto_original").val().trim(); 
 							if (x.substring(x.length-1, x.length) == ";"){						
@@ -72,47 +82,49 @@
 							}
 							varray = x.split(";");
 						}
-						bubble_sort_step(varray);
+						
+						//executa o passo
+						selecao_direta_step(varray);
 					}
 				});
 			});
 
-			function bubble_sort_step(p_array){
+			function selecao_direta_step(p_array){
 				var str_aux = "";
 				
 				var ocorrencia = "";
-				if (Number(p_array[bubble_sort_iteracao+1]) < Number(p_array[bubble_sort_iteracao])) {
-					var aux = p_array[bubble_sort_iteracao];
-					p_array[bubble_sort_iteracao] = p_array[bubble_sort_iteracao+1];
-					p_array[bubble_sort_iteracao+1] = aux;
-					troca++;
-					ocorrencia = "troca "+ p_array[bubble_sort_iteracao] + " por " + aux;
+				//verifica se ocorrerá troca de posições
+				if (Number(p_array[selecao_direta_iteracao]) > Number(p_array[posicao])) {
+					var aux = p_array[selecao_direta_iteracao];
+					p_array[selecao_direta_iteracao] = p_array[posicao];
+					p_array[posicao] = aux;
+					ocorrencia = "troca "+ p_array[selecao_direta_iteracao] + " por " + aux;
 				}
 
+				//monta a nova linha da tabela
 				for (i=0; i<p_array.length; i++){
-					if (i==bubble_sort_iteracao){
+					if (i==selecao_direta_iteracao){
 						str_aux = str_aux+"<td style='color: blue'>"+p_array[i]+"</td>";
-					} else if (i==bubble_sort_iteracao+1){
+					} else if (i==posicao){
 						str_aux = str_aux+"<td style='color: blue'>"+p_array[i]+"</td>";
 					} else {
 						str_aux = str_aux+"<td>"+p_array[i]+"</td>";
 					}
-					
 				}
 
 				varray = p_array;
 				
-				
-				bubble_sort_iteracao++;
-				if (bubble_sort_iteracao>=varray.length-1){
-					bubble_sort_iteracao = 0;
-					
-					if (troca == 0){
-						ocorrencia = "<a style='color: green'>não houveram mais trocas, o vetor está ordenado corretamente!</a>";
+				posicao++;
+				if (posicao>=varray.length){
+					selecao_direta_iteracao++;
+					posicao = selecao_direta_iteracao + 1;
+
+					if (posicao==varray.length){
+						ocorrencia = "<a style='color: green'>O vetor está ordenado corretamente!</a>";
 						ordenado= true;
 					}
-					troca = 0;
 				}
+
 				$("#tabela_resultado").append("<tr style='border: 1px solid'>"+str_aux+"<td style='color: red'>"+ocorrencia+"</td></tr>");
 				return ordenado;
 
@@ -139,11 +151,11 @@
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
 							<li class="nav-header">Troca</li>
-							<li class="active"><a href="bubblesort.html">Bubblesort (Bolha)</a></li>
+							<li><a href="bubblesort.html">Bubblesort (Bolha)</a></li>
 							<li><a href="shakesort.html">ShakeSort (Troca Alternada)</a></li>
 							<li><a href="combsort.html">CombSort</a></li>
 							<li class="nav-header">Seleção</li>
-							<li><a href="selecao_direta.html">Direta</a></li>
+							<li class="active"><a href="selecao_direta.html">Direta</a></li>
 							
 						</ul>
 					</div><!--/.well -->
@@ -151,7 +163,7 @@
 				
 				<div class="span9">
 					<div class="hero-unit">
-						<h2>BubbleSort (Bolha)</h2>
+						<h2>Seleção Direta</h2>
 						<p>O algoritmo bubblesort é um algoritmo de ordenação do tipo Troca. Cada iteração do algoritmo compara o valor da posição atual com o valor da posição subsequente. Se o valor da posição atual for maior que o valor da posição subsequente, o algoritmo realizará a troca de valores. Caso contrário, os valores serão mantidos. O algoritmo segue para a posição seguinte, até atingir a última posição do vetor. Quando o algoritmo alcançar a última posição do vetor, a mesma estará preenchida com o valor do maior elemento do vetor, daí o nome de ordenação do tipo bolha. Então, o algoritmo retorna à primeira posição e reinicia as comparações. Quando o algoritmo percorrer todo o vetor e não houverem mais alterações a fazer, então o vetor estará ordenado.  </p>
 						<textarea cols="120" id="conjunto_original" style="width:100%">03; 07; 01; 09; 05</textarea>
 						<br/>
