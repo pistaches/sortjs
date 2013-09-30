@@ -102,6 +102,26 @@
 			});
 
 			function quick_sort_step(p_array){
+				var tam_maior_um = false;
+				for (x = 0; x < v_quick_arrays.length; x++){
+					if (v_quick_arrays[x].length > 1) {
+						tam_maior_um = true;
+					}
+				}
+				if (tam_maior_um == false) {
+					ordenado = true;
+				}
+
+				while ((v_quick_arrays[v_index_array].length == 1) && (ordenado == false)){
+					v_index_array++;
+					if (v_index_array > v_quick_arrays.length){
+						v_index_array = 0;
+					}
+					v_posicao_dentro_array = v_quick_arrays[v_index_array].length - 1;
+					v_pivoarray = 0;
+					sentido = "dir_esq";
+				}
+
 				if (v_quick_arrays[v_index_array].length > 1) {
 					var str_aux = "";
 				
@@ -119,7 +139,7 @@
 				
 							aux = v_pivoarray; 
 							v_pivoarray = v_posicao_dentro_array;
-							v_posicao_dentro_array = aux+1;
+							v_posicao_dentro_array = aux+1;if (v_posicao_dentro_array < 0) {alert(2);}
 
 							v_pivoarray_tmp = v_pivoarray;
 							v_posicao_dentro_array_tmp = v_posicao_dentro_array-1;
@@ -127,7 +147,7 @@
 							v_pivoarray_tmp = v_pivoarray;
 							sentido = "esq_dir";
 						} else {
-							v_posicao_dentro_array--;
+							v_posicao_dentro_array--;if (v_posicao_dentro_array < 0) {alert(3);}
 							v_posicao_dentro_array_tmp = v_posicao_dentro_array+1;
 						}
 					} else {
@@ -140,33 +160,21 @@
 						
 							aux = v_pivoarray; 
 							v_pivoarray = v_posicao_dentro_array;
-							v_posicao_dentro_array = aux-1;
+							v_posicao_dentro_array = aux-1;if (v_posicao_dentro_array < 0) {alert(4);}
 
 							v_pivoarray_tmp = v_pivoarray;
 							v_posicao_dentro_array_tmp = v_posicao_dentro_array+1;
 				
 							sentido = "dir_esq";
 						} else {
-							v_posicao_dentro_array++;
+							v_posicao_dentro_array++;if (v_posicao_dentro_array < 0) {alert(5);}
 							v_posicao_dentro_array_tmp = v_posicao_dentro_array-1;
 						}
 					}
 
 					var remontar = false;
 					if (v_posicao_dentro_array==v_pivoarray){
-
-						//var v_quick_arrays_tmp = new Array();
-						//var x = 0;
-						//for (j=0; j<v_quick_arrays.length; j++){
-						//	if (j==v_index_array){
-						//		v_quick_arrays_tmp[x] = v_quick_arrays[j];
-						//	} else {
-						//		v_quick_arrays_tmp[x] = v_quick_arrays[j];
-						//	}
-						//	x++;
-						//}
-						//v_quick_arrays = v_quick_arrays_tmp;
-						ocorrencia = "Pivo fixado";
+						ocorrencia = "Pivo("+v_quick_arrays[v_index_array][v_pivoarray]+") colocado em sua posição definitiva";
 						remontar = true;
 					}
 
@@ -188,20 +196,6 @@
 					}
 
 
-
-					//varray = p_array;
-				
-					//posicao++;
-					//if (posicao>=varray.length){
-					//	selecao_direta_iteracao++;
-					//	posicao = selecao_direta_iteracao + 1;
-
-					//	if (posicao==varray.length){
-					//		ocorrencia = "<a style='color: green'>O vetor está ordenado corretamente!</a>";
-					//		ordenado= true;
-					//	}
-					//}
-
 					$("#tabela_resultado").append("<tr style='border: 1px solid'>"+str_aux+"<td style='color: red'>"+ocorrencia+"</td></tr>");
 
 					if (remontar){
@@ -209,13 +203,23 @@
 						var tmp_index_array = 0;					
 						for (j=0; j<v_quick_arrays.length; j++){
 							if (j === v_index_array) {
-								if (v_pivoarray === 0){
+								if (v_quick_arrays[v_index_array].length == 2){
 									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(0, 1);
-									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(1);
-								}else{
-									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(0, v_pivoarray);
-									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(v_pivoarray, v_pivoarray+1);
-									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(v_pivoarray+1);
+									tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(1, 2);
+								} else {
+									if (v_pivoarray === 0){
+										tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(0, 1);
+										tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(1);
+									}else{
+										if (v_pivoarray === (v_quick_arrays[v_index_array].length-1)){
+											tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(0, v_quick_arrays[v_index_array].length-1);
+											tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(v_quick_arrays[v_index_array].length-1);
+										}else{
+											tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(0, v_pivoarray);
+											tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(v_pivoarray, v_pivoarray+1);
+											tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[v_index_array].slice(v_pivoarray+1);
+										}
+									}
 								}
 							} else {
 								tmp_quick_arrays[tmp_index_array++] = v_quick_arrays[j];
@@ -224,14 +228,20 @@
 						v_quick_arrays = tmp_quick_arrays;
 						v_index_array = 0;
 						v_posicao_dentro_array = v_quick_arrays[0].length - 1;
+						if (v_posicao_dentro_array < 0) {alert(6);}
 						v_pivoarray = 0;
 						sentido = "dir_esq";
 					}
-				} else {
-					v_index_array++;
-					v_posicao_dentro_array = v_quick_arrays[v_index_array].length - 1;
-					v_pivoarray = 0;
-					sentido = "dir_esq";
+				}
+
+				if (ordenado) {
+					//monta a nova linha da tabela
+					str_aux = "";
+					ocorrencia = "vetor ordenado";
+					for (j=0; j<v_quick_arrays.length; j++){
+						str_aux = str_aux+"<td style='color: green'>"+v_quick_arrays[j][0]+"</td>";							
+					}
+					$("#tabela_resultado").append("<tr style='border: 1px solid'>"+str_aux+"<td style='color: red'>"+ocorrencia+"</td></tr>");
 				}
 				return ordenado;
 
@@ -276,7 +286,6 @@
 						<br/>
 						<input type="button" id="botao_proximo" value="passo a passo"/>
 						<input type="button" id="botao_ordenar" value="ordenar tudo"/>
-						<input type="button" id="debug" value="debug" onclick="alert(v_posicao_dentro_array)";/>
 						<table class="table table-bordered table-condensed table-hover" id="tabela_resultado" ></table>
 					</div>
 					<div class="row-fluid">
