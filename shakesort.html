@@ -164,7 +164,8 @@
 				<div class="span9">
 					<div class="hero-unit">
 						<h2>ShakeSort (Troca Alternda)</h2>
-						<p>O algoritmo bubblesort é um algoritmo de ordenação do tipo Troca. Cada iteração do algoritmo compara o valor da posição atual com o valor da posição subsequente. Se o valor da posição atual for maior que o valor da posição subsequente, o algoritmo realizará a troca de valores. Caso contrário, os valores serão mantidos. O algoritmo segue para a posição seguinte, até atingir a última posição do vetor. Quando o algoritmo alcançar a última posição do vetor, a mesma estará preenchida com o valor do maior elemento do vetor, daí o nome de ordenação do tipo bolha. Então, o algoritmo retorna à primeira posição e reinicia as comparações. Quando o algoritmo percorrer todo o vetor e não houverem mais alterações a fazer, então o vetor estará ordenado.  </p>
+						<p>
+O algoritmo ShakeSort, também conhecido como CocktailSort, opera de maneira semelhante ao BubbleSort. Cada elemento do vetor é comparado com o elemento vizinho e caso o valor seja maior, acontecerá a troca de posição entre os elementos. A novidade aqui é que o ShakeSort percorre o vetor nos dois sentidos, ou seja, da esquerda para direita, e então, da direita para esquerda. Esta otimização permite que o tempo de ordenação caia praticamente pela metade. O algoritmo considera que o vetor estará ordenado caso ocorra uma iteração da esquerda para a direita e em seguida uma iteração no sentido contrário, sem que hajam trocas entre elementos vizinhos.  
 						<textarea cols="120" id="conjunto_original" style="width:100%">03; 07; 01; 09; 05</textarea>
 						<br/>
 						<input type="button" id="botao_proximo" value="passo a passo"/>
