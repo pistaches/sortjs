@@ -280,8 +280,8 @@
 				
 				<div class="span9">
 					<div class="hero-unit">
-						<h2>Seleção Direta</h2>
-						<p>O algoritmo bubblesort é um algoritmo de ordenação do tipo Troca. Cada iteração do algoritmo compara o valor da posição atual com o valor da posição subsequente. Se o valor da posição atual for maior que o valor da posição subsequente, o algoritmo realizará a troca de valores. Caso contrário, os valores serão mantidos. O algoritmo segue para a posição seguinte, até atingir a última posição do vetor. Quando o algoritmo alcançar a última posição do vetor, a mesma estará preenchida com o valor do maior elemento do vetor, daí o nome de ordenação do tipo bolha. Então, o algoritmo retorna à primeira posição e reinicia as comparações. Quando o algoritmo percorrer todo o vetor e não houverem mais alterações a fazer, então o vetor estará ordenado.  </p>
+						<h2>QuickSort</h2>
+						<p>O QuickSort é um algoritmo de ordenação recursivo que se baseia na divisão do vetor original em vetores menores, a fim de obter melhor desempenho. Inicialmente, o primeiro elemento é escolhido como pivô, e então é comparado com o último elemento. Se o pivô for maior, os elementos trocam de posição. Caso contrário, o pivô é comparado com o penúltimo elemento. Caso ocorra a troca, o sentido das comparações é invertido, ou seja, compara-se o pivô, que está posicionado mais a direita do vetor(próximo ao final), com o segundo elemento do vetor, e assim por diante. Quando não houverem mais elementos a comparar com o pivô, considera-se que o pivô está em sua posição definitiva. Feito isto, o vetor é divido entre os elementos que estão localizado antes do pivô, e os elementos que estão após o pivô. A partir daí, o processo é repetido para cada um dos novos vetores, até que todos os pivôs estejam localizados em suas posições corretas.   </p>
 						<textarea cols="120" id="conjunto_original" style="width:100%">70; 12; 98; 80; 68; 20; 16; 10; 08; 05</textarea>
 						<br/>
 						<input type="button" id="botao_proximo" value="passo a passo"/>
