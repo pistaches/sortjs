@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Algorítmos de ordenação</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+		<!-- Le styles -->
+		<style type="text/css">
+			body {
+				padding-top: 60px;
+				padding-bottom: 40px;
+		      	}
+		      	.sidebar-nav {
+				padding: 9px 0;
+		      	}
+
+		      	@media (max-width: 980px) {
+				/* Enable use of floated navbar text */
+				.navbar-text.pull-right {
+				  	float: none;
+				  	padding-left: 5px;
+				  	padding-right: 5px;
+				}
+		     	}
+		</style>
+		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+		    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		    <!--[if lt IE 9]>
+		      <script src="../assets/js/html5shiv.js"></script>
+		    <![endif]-->
+
+		<!-- Fav and touch icons -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+		<link rel="shortcut icon" href="ico/favicon.png">
+
+
+		<script src="jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			var bubble_sort_iteracao = 0;
+			var troca = 0;
+			var ordenado = false;
+			var varray = null;
+			var intervalo = 0;
+
+			$( document ).ready(function() {
+				$( "#botao_proximo" ).click(function( event ) {
+					if (!ordenado){
+						if (varray === null){
+							var x = $("#conjunto_original").val().trim(); 
+							if (x.substring(x.length-1, x.length) == ";"){						
+								x = x.substring(0, x.length - 1);
+							}
+							varray = x.split(";");
+						}
+						bubble_sort_step(varray);
+					}
+				});
+
+			$( "#botao_ordenar" ).click(function( event ) {
+					while (!ordenado){
+						if (varray === null){
+							var x = $("#conjunto_original").val().trim(); 
+							if (x.substring(x.length-1, x.length) == ";"){						
+								x = x.substring(0, x.length - 1);
+							}
+							varray = x.split(";");
+						}
+						bubble_sort_step(varray);
+					}
+				});
+			});
+
+			function bubble_sort_step(p_array){
+				var str_aux = "";
+				if (intervalo == 0){
+					intervalo = p_array.length - 1; 
+				}
+				
+				var ocorrencia = "";
+				if (Number(p_array[bubble_sort_iteracao+intervalo-1]) < Number(p_array[bubble_sort_iteracao])) {
+					var aux = p_array[bubble_sort_iteracao];
+					p_array[bubble_sort_iteracao] = p_array[bubble_sort_iteracao+intervalo-1];
+					p_array[bubble_sort_iteracao+intervalo-1] = aux;
+					troca++;
+					ocorrencia = "troca "+ p_array[bubble_sort_iteracao] + " por " + aux;
+				}
+
+
+
+				for (i=0; i<p_array.length; i++){
+					if (i==bubble_sort_iteracao){
+						str_aux = str_aux+"<td style='color: blue'>"+p_array[i]+"</td>";
+					} else if (i==bubble_sort_iteracao+intervalo-1){
+						str_aux = str_aux+"<td style='color: blue'>"+p_array[i]+"</td>";
+					} else {
+						str_aux = str_aux+"<td>"+p_array[i]+"</td>";
+					}
+					
+				}
+
+				varray = p_array;
+				
+				
+				bubble_sort_iteracao++;
+				if (bubble_sort_iteracao+intervalo-1>=varray.length){
+					bubble_sort_iteracao = 0;
+					
+					if (troca == 0 && intervalo == 2){
+						ocorrencia = "<a style='color: green'>não houveram mais trocas, o vetor está ordenado corretamente!</a>";
+						ordenado= true;
+					}
+					troca = 0;
+					if (intervalo > 2){
+						intervalo--;
+					}
+				}
+				$("#tabela_resultado").append("<tr style='border: 1px solid'>"+str_aux+"<td style='color: red'>"+ocorrencia+"</td></tr>");
+				return ordenado;
+
+			}
+		</script>
+	</head>
+	<body>		
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#">Pistaches - Algorítmos de Ordenação</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list">
+							<li class="nav-header">SortJs</li>
+							<li><a href="index.html">Sobre o projeto</a></li>
+							<li class="nav-header">Troca</li>
+							<li><a href="bubblesort.html">Bubblesort (Bolha)</a></li>
+							<li><a href="shakesort.html">ShakeSort (Troca Alternada)</a></li>
+							<li class="active"><a href="combsort.html">CombSort</a></li>
+							<li class="nav-header">Seleção</li>
+							<li><a href="selecao_direta.html">Direta</a></li>
+							<li class="nav-header">Partição</li>
+							<li><a href="quick_sort.html">QuickSort</a></li>
+						</ul>
+					</div><!--/.well -->
+				</div><!--/span-->
+				
+				<div class="span9">
+					<div class="hero-unit">
+						<h2>CombSort</h2>
+						<p> O algortimo de ordenação CombSort é uma variação do BubbleSort. Um dos principais problemas do algoritmo BubbleSort é a presença de elementos "tartaruga". Estes elementos são chamados assim por que possuem valores maiores e estão localizados no início do vetor, de modo que serão necessárias várias comparações para serem deslocados até as posições finais do conjunto. O algoritmo CombSort resolve este problema utilizando grandes intervalos. Na nossa implementação, dado um vetor de tamanho N=5, a distância entre o elemento atual e o elemento a ser comparado será de N-1 = 4. Desta forma o algoritmo realizará as comparações até que o último elemento alvo atinja o final do conjunto. Em seguida a iteração é reinicidada, desta vez com um intervalo menor de comparação (N-1 = 3). As iterações continuam até que o intervalo seja igual a 2. Nesta situação o algoritmo se comportará da mesma maneira que o BubbleSort, porém, grande parte dos elementos "tartaruga" já estarão posicionados próximos ao final do vetor.   </p>
+						<textarea cols="120" id="conjunto_original" style="width:100%">03; 07; 01; 09; 05</textarea>
+						<br/>
+						<input type="button" id="botao_proximo" value="passo a passo"/>
+						<input type="button" id="botao_ordenar" value="ordenar tudo"/>
+						<table class="table table-bordered table-condensed table-hover" id="tabela_resultado" ></table>
+					</div>
+					<div class="row-fluid">
+						<div class="span4">
+					</div><!--/row-->
+				</div><!--/span-->
+			</div><!--/row-->
+   			<hr>
+
+			<footer>
+				<p>&copy; Pistaches 2013</p>
+			</footer>
+		</div><!--/.fluid-container-->
+
+
+	
+	</body>
+</html>
